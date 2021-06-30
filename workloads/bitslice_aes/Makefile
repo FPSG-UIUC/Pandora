@@ -12,7 +12,7 @@ GA_OBJ = $(_OBJ:%=$(ODIR)/%_o.asm)
 DA_OBJ = $(_OBJ:%=$(ODIR)/%_debug.asm)
 NA_OBJ = $(_OBJ:%=$(ODIR)/%_native.asm)
 
-GEMPATH ?= /shared/pshome2/silent_stores_gem5
+GEMPATH ?= ../../simulator
 INC=-I$(GEMPATH)/include -I$(SODIUM_DIR)/src/libsodium/include
 ASM=$(GEMPATH)/util/m5/m5op_x86.S
 
