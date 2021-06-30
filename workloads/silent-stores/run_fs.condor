@@ -1,0 +1,51 @@
+Executable=$(InitialDir)/run_move.sh
+
+InitialDir=/shared/jose/purge/silent_stores_binaries/silent-stores
+
+log_name = /shared/jose/purge/gem5_out/fs_$(name)
+Output = $(log_name).out
+Error  = $(log_name).err
+Log    = $(log_name).log
+
+Priority = 1
+
+request_CPUs = 1
+
+should_transfer_files = NO
+get_env = true
+
+script=./fs.sh
+
+outdir=/scratch/jose/purge/gem5_out/fs_$(name)
+
+emulation_type=/shared/jose/purge/baseline/configs/example/fs.py
+
+debug_flags = O3PipeView
+name=$(name)_O3PipeView
+
+condor_arguments= \
+--outdir=$(outdir) \
+--debug-flag=$(debug_flags) \
+--debug-file=debug.out \
+$(emulation_type) \
+--kernel=/shared/jose/purge/binaries/x86_64-vmlinux-2.6.22.9 \
+--ruby \
+--num-cpus=8 \
+--caches \
+--l2cache \
+--disk-image=/shared/jose/purge/disks/linux-x86.img \
+--script=$(script) \
+--cpu-type=DerivO3CPU \
+--num-dirs=8 \
+--num-l2caches=8 \
+--topology=Crossbar
+
+Arguments="$(Error) fs_$(name) $(condor_path) $(condor_arguments)"
+
+condor_path=/shared/jose/purge/silent_stores_poc/build/X86/gem5.opt
+Queue
+
+debug_flags = SilentStores,O3PipeView
+name=$(name)_slst
+
+Queue

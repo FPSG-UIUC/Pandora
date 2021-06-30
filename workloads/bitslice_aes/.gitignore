@@ -1,0 +1,12 @@
+*.pdf
+*.p
+*.gem5_out
+*.parsed.csv
+bslice_gadget_*/
+rc*/
+*.png
+dram*
+__pycache__/
+queue.*
+test_keys.h
+*.asm

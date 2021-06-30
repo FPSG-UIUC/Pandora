@@ -1,0 +1,47 @@
+Executable=run_move.sh
+
+# name specifies the prefix of the output file
+#     This is used to distinguish between the large number of traces that
+#     will start getting generated.
+
+# type specifies the version of gem5 we want to run this workload on
+# The corresponding folder $(type)_gem5 should exist in /shared/pshome2/
+# Options:
+#     silent_stores - modified to silence stores
+#     baseline - baseline gem5
+
+log_name = /shared/pshome2/gem5_out/$(name)_$Fn(cmd)
+Output = $(log_name).out
+Error  = $(log_name).err
+Log    = $(log_name).log
+
+Priority = -5
+
+request_CPUs = 1
+
+should_transfer_files = NO
+
+cmd=/shared/pshome2/purge-workloads/silent-stores/bin/induce_scanning.o
+
+outdir=/scratch/pshome2/gem5_out/$(name)_$Fn(cmd)
+
+condor_path=/shared/pshome2/$(type)_gem5/build/X86/gem5.debug
+emulation_type=/shared/pshome2/$(type)_gem5/configs/example/se.py
+
+debug_flags=O3CPUAll,O3PipeView
+
+condor_arguments= \
+--outdir=$(outdir) \
+--debug-flag=$(debug_flags) \
+--debug-file=debug.out \
+$(emulation_type) \
+--cmd=$(cmd) \
+--options=5 \
+--cpu-type=DerivO3CPU \
+--l1d_size=64kB \
+--l1i_size=16kB \
+--caches 
+
+Arguments="$(name)_$Fn(cmd) $(condor_path) $(condor_arguments)"
+
+Queue

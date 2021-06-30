@@ -1,0 +1,65 @@
+Executable=$(InitialDir)/run_move.sh
+# binary=silent-stores.o
+# binary=covert_sodium.o
+
+InitialDir=/shared/jose/purge/silent_stores_binaries/silent-stores
+
+log_name = /shared/jose/purge/gem5_out/$(name)_$(run_type)_$Fn(cmd)
+Output = $(log_name).out
+Error  = $(log_name).err
+Log    = $(log_name).log
+
+Priority = 10
+
+request_CPUs = 1
+
+should_transfer_files = NO
+get_env = true
+
+
+If $(bslice)
+    binary=test.o
+    out_file=/shared/jose/purge/silent_stores_binaries/silent-stores/bslice_timing_$(run_type).gem5_out
+    cmd=/shared/jose/purge/silent_stores_binaries/bitslice_aes/$(binary)
+else
+    binary=covert.o
+    out_file=/shared/jose/purge/silent_stores_binaries/silent-stores/heap_copy_one.out
+    cmd=$(InitialDir)/bin/$(binary)
+endif
+
+outdir=/scratch/jose/purge/gem5_out/$(name)_$Fn(cmd)
+
+emulation_type=/shared/jose/purge/baseline/configs/example/se.py
+
+# debug_flags = O3PipeView,O3CPUAll
+debug_flags = O3PipeView,O3CPUAll
+
+condor_arguments= \
+--outdir=$(outdir) \
+--debug-flag=$(debug_flags) \
+--debug-file=debug.out \
+$(emulation_type) \
+--cmd=$(cmd) \
+-o $(run_type) \
+# --ruby \
+--cpu-type=DerivO3CPU \
+--l1d_size=64kB \
+--l1i_size=32kB \
+--l2_size=256kB \
+--l3_size=15360kB \
+--l2cache \
+--caches
+
+Arguments="$(out_file) $(Error) $(name)_$(run_type)_$Fn(cmd) $(condor_path) $(condor_arguments)"
+
+If $(baseline)
+    name=baseline_$(name)
+    condor_path=/shared/jose/purge/baseline/build/X86/gem5.opt
+else
+    condor_path=/shared/jose/purge/silent_stores_poc/build/X86/gem5.opt
+endif
+
+run_type=None
+
+# Queue run_type from queue
+Queue
