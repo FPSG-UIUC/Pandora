@@ -4,7 +4,17 @@ cd workloads/bitslice_aes/
 
 source get_pcs.sh
 
-debugf=$1
+if [ "$#" -ne 1 ]; then
+  echo "debug.out file not passed, trying to use results/debug.out" >&2
+  debugf="results/debug.out"
+else
+  debugf=$1
+fi
+
+if [ ! -f "$debugf" ]; then
+  echo "Failed to find results/debug.out"
+fi
+
 fpath=${debugf%/*}
 picklef="$fpath"/rois.p
 
