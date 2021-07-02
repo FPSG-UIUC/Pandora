@@ -1,5 +1,8 @@
 #!/bin/zsh
-rsync ragnarok:/shared/jose/purge/silent_stores_binaries/bitslice_aes/test_o.asm .
+if [ ! -f workloads/bitslice_aes/test_o.asm ]; then
+  echo "test_o.asm file not found in workloads/bitslice_aes" >&2
+  exit 1
+fi
 
 start_pc=$(rg clflush test_o.asm | sed -e 's|^  ||' -e 's|:.*||' | head -n1)
 

@@ -1,8 +1,12 @@
+cd workloads/bitslice_aes
+make
+cd ../..
+
 mkdir -p results
 
 ./simulator/build/X86/gem5.opt \
   --outdir=results \
-  --debug_flags=SilentStores \
+  --debug_flags=SilentStores,O3PipeView,Fetch,Cache,LSQUnit,ROB \
   --debug-file=debug.out \
   simulator/configs/example/se.py \
   --cmd=workloads/bitslice_aes/test.o \

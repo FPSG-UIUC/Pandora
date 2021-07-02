@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+cd workloads/bitslice_aes/
+
 source get_pcs.sh
 
 debugf=$1
