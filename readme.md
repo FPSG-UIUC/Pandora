@@ -23,3 +23,5 @@ Building a workload (using make) creates three versions:
  - gem5: Contains no additional debug prints or verifications. Does not run natively, because it includes various gem5 magic instructions to properly handle statistics. *This version should be run through gem5 to ensure statistics processing happens correctly*.
 
 ## Interpreting Results/
+Results can be interpreted using standard Gem5 tactics (we recommend [Konata](https://github.com/shioyadan/Konata)).
+Some sample scripts to pull out the target instructions from our workloads are included.
