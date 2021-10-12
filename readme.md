@@ -1,6 +1,6 @@
-This repo holds the Silent Stores PoCs for Pandora TODO link.
+This repo holds the Silent Stores PoCs for [Pandora](https://homes.cs.washington.edu/~dkohlbre/papers/pandora_isca2021.pdf).
 Along with the various workloads, our Silent Stores implementation on Gem5 is included under simulator/.
-The implementation is based on the Gem5 simulator TODO link.
+The implementation is based on the [Gem5 simulator](https://www.gem5.org/documentation/general_docs/building).
 Based on this implementation of silent stores, we presented an attack on Bitslice AES.
 The code for this PoC can be found under workloads/bitslice_aes/.
 Also in workloads are various other programs used for testing -- including a covert channel based on Silent Stores.
