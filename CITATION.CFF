@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software or the results of the paper, please cite it as below."
+authors:
+- family-names: "Sanchez Vicarte"
+  given-names: "Jose Rodrigo"
+- family-names: "Shome"
+  given-names: "Pradyumna"
+- family-names: "Nayak"
+  given-names: "Nandeeka"
+- family-names: "Trippel"
+  given-names: "Caroline"
+- family-names: "Morrison"
+  given-names: "Adam"
+- family-names: "Kohlbrenner"
+  given-names: "David"
+- family-names: "Fletcher"
+  given-names: "Christopher W."
+title: "Opening Pandora's Box: A Systematic Study of New Ways Microarchitecture Can Leak Private Data"
+version: 1.0.0
+doi: 10.1109/ISCA52012.2021.00035
+date-released: 2021-06-30
+url: "https://github.com/FPSG-UIUC/Pandora"
